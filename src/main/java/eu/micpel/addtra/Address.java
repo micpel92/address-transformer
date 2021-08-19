@@ -1,5 +1,9 @@
 package eu.micpel.addtra;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.lang3.SerializationException;
+
 public class Address {
 
     private String street;
@@ -21,11 +25,12 @@ public class Address {
         this.housenumber = housenumber;
     }
 
-    @Override
-    public String toString() {
-        return "Address{" +
-                "street='" + street + '\'' +
-                ", housenumber='" + housenumber + '\'' +
-                '}';
+    public String toJson() {
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            throw new SerializationException(e);
+        }
     }
+
 }

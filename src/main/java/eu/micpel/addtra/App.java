@@ -1,13 +1,15 @@
 package eu.micpel.addtra;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+public class App {
+    public static void main(String[] args) {
+        var parser = new AddressParser();
+
+        for (var item : args) {
+            try {
+                System.out.println(parser.parseAddress(item).toJson());
+            } catch (Exception e) {
+                System.err.println("Unable to process entry: " + item);
+            }
+        }
     }
 }

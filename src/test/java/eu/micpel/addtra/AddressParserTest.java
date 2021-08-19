@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class AddressParserTest {
+class AddressParserTest {
 
     @ParameterizedTest(name = "In address ''{0}'' street is ''{1}'' and house number is ''{2}''")
     @CsvSource(delimiter = ':', value = {
@@ -18,7 +18,7 @@ public class AddressParserTest {
             "4, rue de la revolution:rue de la revolution:4",
             "200 Broadway Av:Broadway Av:200",
             "Calle Aduana, 29:Calle Aduana:29",
-            "Calle 39 No 1540:Calle 39:No 1540"
+            "Calle 39 No 1540:Calle 39:1540"
     })
     void testParseAddress(String address, String street, String housenumber) {
         // given
@@ -28,8 +28,8 @@ public class AddressParserTest {
         var result = underTest.parseAddress(address);
 
         // then
-        assertThat(result).extracting(Address::getStreet).isEqualTo(street);
-        assertThat(result).extracting(Address::getHousenumber).isEqualTo(housenumber);
+        assertThat(result.getStreet()).isEqualTo(street);
+        assertThat(result.getHousenumber()).isEqualTo(housenumber);
     }
 
 }
